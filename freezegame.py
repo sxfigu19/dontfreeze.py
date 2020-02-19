@@ -1,9 +1,13 @@
 import pyglet
-import util
+
 win = pyglet.window.Window()
 
-title = pyglet.text.Label('Do Not Freeze!', font_size=35, x = 250, y = 450)
-
+water= pyglet.image.load('images/assets/graphics-tiles-waterflow.png')
+spr1 = pyglet.sprite.Sprite(water, x=0, y =0)
+spr1.scale = 4
+fire= pyglet.image.load('images/assets/litfire.png')
+spr2 = pyglet.sprite.Sprite(fire, x=300, y =200)
+spr2.scale = 0.7
 
 # Get the key state handler object
 keys = pyglet.window.key.KeyStateHandler()
@@ -19,13 +23,13 @@ def update(dt):
     if keys[pyglet.window.key.RIGHT]:
         print("Right key pressed!")
 
+
 @win.event
 def on_draw():
-    util.pixelScale()
     win.clear()
     #img.blit(200, 100)
-    title.draw()
-
+    spr1.draw()
+    spr2.draw()
 
 pyglet.clock.schedule(update)
 pyglet.app.run()
