@@ -25,6 +25,8 @@ class Timer:
             if m >= 5:
                 self.label.color = (180, 0, 0, 255)
 
+
+
 water= pyglet.image.load('images/assets/ground/graphics-tiles-waterflow.png')
 wet = pyglet.sprite.Sprite(water, x=0, y =0)
 wet.scale = 15
