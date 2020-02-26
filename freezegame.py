@@ -1,67 +1,93 @@
 import pyglet
 
-win = pyglet.window.Window() # place fullscreen=True inside ()
+win = pyglet.window.Window(fullscreen=True) # place fullscreen=True inside ()
+
+class Timer:
+
+    def __init__(self):
+        self.label = pyglet.text.Label('00:00', font_size=65,
+                                       x=win.width // 15,
+                                       y=win.height // 1.05,
+                                       anchor_x='center', anchor_y='center')
+        self.reset()
+
+    def reset(self):
+        self.time = 0
+        self.running = True
+        self.label.text = '00:00'
+        self.label.color = (255, 255, 255, 255)
+
+    def update(self, dt):
+        if self.running:
+            self.time += dt
+            m, s = divmod(self.time, 60)
+            self.label.text = '%02d:%02d' % (m, s)
+            if m >= 5:
+                self.label.color = (180, 0, 0, 255)
 
 water= pyglet.image.load('images/assets/ground/graphics-tiles-waterflow.png')
-spr1 = pyglet.sprite.Sprite(water, x=0, y =0)
-spr1.scale = 4
+wet = pyglet.sprite.Sprite(water, x=0, y =0)
+wet.scale = 15
 land= pyglet.image.load('images/assets/ground/snow_stones.png')
-spr2 = pyglet.sprite.Sprite(land, x=135, y =55)
-spr2.scale = 1.5
+snow = pyglet.sprite.Sprite(land, x=500, y =40)
+snow.scale = 4
 
 talltree= pyglet.image.load('images/assets/ground/tall_snow_tree.png')
-spr3 = pyglet.sprite.Sprite(talltree, x=380, y =310)
-spr3.scale = 1
+tree1 = pyglet.sprite.Sprite(talltree, x=1100, y =680)
+tree1.scale = 3.4
 shorttree= pyglet.image.load('images/assets/ground/short_snow_tree.png')
-spr4 = pyglet.sprite.Sprite(shorttree, x=160, y =95)
-spr4.scale = 0.8
+tree2 = pyglet.sprite.Sprite(shorttree, x=550, y =125)
+tree2.scale = 3
 
 fire= pyglet.image.load('images/assets/ground/litfire.png')
-spr5 = pyglet.sprite.Sprite(fire, x=300, y =235)
-spr5.scale = 0.8
+hot = pyglet.sprite.Sprite(fire, x=950, y=500)
+hot.scale = 2
 
 player= pyglet.image.load('images/assets/girl/girl_stand.png')
 playerleft= pyglet.image.load('images/assets/girl/girl_walk_left.png')
 playerright= pyglet.image.load('images/assets/girl/girl_walk_right.png')
 playerup= pyglet.image.load('images/assets/girl/girl_walk_up.png')
 playerdown= pyglet.image.load('images/assets/girl/girl_walk_down.png')
-spr6 = pyglet.sprite.Sprite(player, x=285, y =235)
-spr6.scale = 1
+play = pyglet.sprite.Sprite(player, x=875, y =500)
+play.scale = 3
 
 # Get the key state handler object
 keys = pyglet.window.key.KeyStateHandler()
 
 def update(dt):
     win.push_handlers(keys) # update the key object
-    spr6.image = player
+    play.image = player
     if keys[pyglet.window.key.UP]:
         print("Moving Up")
-        spr6.image = playerup
-        spr6.y+=2
+        play.image = playerup
+        play.y+=5
     if keys[pyglet.window.key.DOWN]:
         print("Moving Down")
-        spr6.image = playerdown
-        spr6.y-=2
+        play.image = playerdown
+        play.y-=5
     if keys[pyglet.window.key.LEFT]:
         print("Moving Left")
-        spr6.image = playerleft
-        spr6.x-=2
+        play.image = playerleft
+        play.x-=5
     if keys[pyglet.window.key.RIGHT]:
         print("Moving Right")
-        spr6.image = playerright
-        spr6.x+=2
+        play.image = playerright
+        play.x+=5
 
 
 @win.event
 def on_draw():
     win.clear()
     #img.blit(200, 100)
-    spr1.draw()
-    spr2.draw()
-    spr3.draw()
-    spr4.draw()
-    spr5.draw()
-    spr6.draw()
+    wet.draw()
+    snow.draw()
+    tree1.draw()
+    tree2.draw()
+    hot.draw()
+    play.draw()
+    timer.label.draw()
 
+timer = Timer()
+pyglet.clock.schedule_interval(timer.update, 1)
 pyglet.clock.schedule(update)
 pyglet.app.run()
