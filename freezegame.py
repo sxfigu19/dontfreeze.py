@@ -26,6 +26,14 @@ class Timer:
                 self.label.color = (180, 0, 0, 255)
 
 
+def draw_rect(x, y, width, height):
+    pyglet.graphics.draw(4, pyglet.gl.GL_QUADS,
+        ('v2f', [x, y, x + width, y, x + width, y + height, x, y + height]))
+
+
+animation = pyglet.image.load_animation('images/assets/snow_fall3.gif')
+fall = pyglet.sprite.Sprite(animation, x=0, y=0)
+fall.scale = 5
 
 water= pyglet.image.load('images/assets/ground/graphics-tiles-waterflow.png')
 wet = pyglet.sprite.Sprite(water, x=0, y =0)
@@ -88,6 +96,8 @@ def on_draw():
     hot.draw()
     play.draw()
     timer.label.draw()
+    draw_rect(50, 50, 400, 10)
+    fall.draw()
 
 timer = Timer()
 pyglet.clock.schedule_interval(timer.update, 1)
