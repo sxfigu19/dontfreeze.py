@@ -50,6 +50,7 @@ tree2 = pyglet.sprite.Sprite(shorttree, x=550, y =125)
 tree2.scale = 3
 
 fire= pyglet.image.load('images/assets/ground/litfire.png')
+deadfire= pyglet.image.load('images/assets/ground/deadfire.png')
 hot = pyglet.sprite.Sprite(fire, x=950, y=500)
 hot.scale = 2
 
