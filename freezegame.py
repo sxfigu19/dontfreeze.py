@@ -1,6 +1,6 @@
 import pyglet
 
-win = pyglet.window.Window(fullscreen=True) # place fullscreen=True inside ()
+win = pyglet.window.Window(fullscreen=True)
 
 class Timer:
 
@@ -92,10 +92,10 @@ def on_draw():
     #img.blit(200, 100)
     wet.draw()
     snow.draw()
-    tree1.draw()
-    tree2.draw()
     hot.draw()
     play.draw()
+    tree1.draw()
+    tree2.draw()
     timer.label.draw()
     draw_rect(50, 50, 400, 10)
     fall.draw()
